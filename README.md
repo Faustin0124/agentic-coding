@@ -13,7 +13,7 @@ sans dépendance à un stack ou un client en particulier.
 | `database-migrations` | Évolution de schéma sans downtime, rollback |
 | `supabase-security` | RLS, sécurité multi-tenant, tokens Supabase |
 | `skill-creator` | Créer et itérer sur des skills Claude Code |
-| `frontend-design` | UI/composants front à haute qualité visuelle |
+| `frontend-design` | UI/composants front anti-slop : lit `design.md` en priorité, sinon infère le goût (dials, anti-clichés, pre-flight) |
 | `product-designer` | Design produit complet : UX, IA, design system, code UI |
 
 ## Réutiliser un skill dans un nouveau projet
