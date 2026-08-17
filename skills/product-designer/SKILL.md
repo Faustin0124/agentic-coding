@@ -1,14 +1,32 @@
 ---
 name: product-designer
 description: >
-  Expert Product Designer: UI/UX code execution + user flow strategy. Use this skill for: building or designing any interface (landing page, dashboard, SaaS app, mobile, component); designing user flows, navigation architecture, or cross-screen journeys; reviewing and critiquing existing UI/UX for quality, consistency, or conversion issues; making design system decisions (colors, tokens, typography, spacing); working with React/Tailwind/shadcn/ui; vibecoding in Lovable; writing Lovable prompts for UI screens. ALWAYS trigger for: "design the flow", "map the user journey", "what screens do I need", "how does the user get from X to Y", "review my UI", "improve UX", "make this look better", "this feels off", "what's wrong with this design", "add dark mode". Also trigger for: wireframe → code, component design, design system audit, accessibility review. Every UI decision has product impact — trigger broadly.
+  Expert Product Designer: user flow strategy, information architecture, and UI code execution.
+  Use this skill for: designing user flows, navigation architecture, or cross-screen journeys;
+  planning what screens a feature needs; reviewing and critiquing existing UI/UX for structural,
+  functional, or conversion issues; making design-system decisions when no design.md exists yet;
+  building interfaces with React/Tailwind/shadcn/ui; vibecoding in Lovable; writing Lovable
+  prompts for UI screens. ALWAYS trigger for: "design the flow", "map the user journey", "what
+  screens do I need", "how does the user get from X to Y", "review my UI", "improve UX", "this
+  feels off", "what's wrong with this design". Also trigger for: wireframe → code, component
+  design, design-system setup, accessibility review. Every UI decision has product impact —
+  trigger broadly.
 ---
 
 # Product Designer Skill
 
-Full-spectrum product design: from strategic design decisions to pixel-perfect, production-grade UI code. Covers discovery, information architecture, visual design system, component implementation, and quality review.
+Full-spectrum product design: from strategic design decisions (flows, information architecture,
+navigation) to production-grade UI code. This skill owns the **structural and strategic** layer
+— what screens exist, how users move between them, what a component's API and states need to
+be, whether the flow actually works.
 
-**Primary stack**: React + Tailwind CSS + shadcn/ui  
+**For visual taste and anti-"AI slop" execution** — typography choices, color calibration,
+layout diversification, motion, the mechanical pre-flight audit — use the `frontend-design`
+skill. The two are complementary, not overlapping: plan the flow and structure here, then hand
+visual polish to `frontend-design` once you know what you're building. On a small task where
+both matter, load both; don't duplicate one skill's rules inside the other.
+
+**Primary stack**: React + Tailwind CSS + shadcn/ui
 **Secondary stacks**: Next.js, Vue, HTML/CSS, React Native, Flutter
 
 ---
@@ -24,8 +42,8 @@ Before touching code, choose the right mode:
 | User journey / navigation | **Flow Design** | Section 1.3 |
 | Existing UI to improve | **Review → Decide → Fix** | Section 4 → 3 |
 | Specific component request | **Component Design** | Section 3 |
-| "This looks off" feedback | **Diagnosis** | Section 4 |
-| Choosing style / color / font | **Design System** | Section 2 |
+| "This looks off" feedback | **Diagnosis** | Section 4, then `frontend-design` for the fix |
+| No design system yet | **Design System Setup** | Section 2 |
 
 ---
 
@@ -81,14 +99,9 @@ Success: [Where user lands after completing goal]
 Error path: [What happens on failure]
 ```
 
-#### Screen Inventory for Common Pradio Flows
-
-| Flow | Minimum Screens |
-|------|----------------|
-| Onboarding | Landing → Register → Email confirm → Profile setup → First bien |
-| Ajouter un bien | Form multi-step: Adresse → Caractéristiques → Acquisition → Simulations |
-| Simulation fiscale | Bien selection → Paramètres → Résultats → Export/Save |
-| Dashboard principal | Vue globale → Détail bien → Simulation → Actions |
+Apply this format to whatever the product actually is — an onboarding flow, a checkout, a
+multi-step form, a settings journey. There's no universal screen inventory; the flow mapping
+process above is what generalizes, not a fixed list of screens.
 
 #### Navigation Architecture Principles
 
@@ -127,64 +140,50 @@ Key trade-offs: [What was sacrificed for simplicity/performance/clarity]
 
 ## 2. Design System (Visual Foundation)
 
-### 2.1 — Pradio Design System — DS V3.1
+### 2.0 — Check for design.md First
 
-Pradio uses a **strict design system** (V3.1) optimized for fintech/proptech clarity and trust. All UI must comply with DS V3.1 checklist.
+If the project has a `design.md` (or `DESIGN.md`, `docs/design.md`) at its root, **that's the
+design system** — tokens, typography, spacing, and component conventions all come from there,
+not from this section. `frontend-design` documents the same rule and the exhaustive taste rules
+that go with it; this section is only for the gap `frontend-design` doesn't cover: **setting up
+a design system from scratch** when none exists yet.
 
-**Reference:** `wiki/design/DESIGN-SYSTEM-V3.1.md`
+### 2.1 — No design.md Yet? Establish One
 
-Key constraints:
-- **Max 5 semantic colors** (primary, success, destructive, warning, foreground) + greys
-- **No tinted backgrounds** — use `bg-card` or `bg-background` only
-- **Tabular numbers** for financial data (right-aligned, monospace)
-- **Lucide icons only** — 4-5px sizes, stroke 1.75, zero emojis
-- **Typography scale** — 12/14/16/18/20/24/32/40/48px only
-- **Spacing grid** — 4px multiples (Tailwind scale)
+Rather than picking colors and spacing ad hoc per screen, define a minimal system once and
+write it down as the project's `design.md` so every future task — by this skill, by
+`frontend-design`, by a human — has one source of truth. A minimal system needs:
 
-### 2.2 — Color System (Semantic Tokens)
+- **Semantic color tokens**, not raw hex scattered through components. A common starting set:
 
-Use Tailwind CSS variables mapped to semantic meaning:
+  | Token | Purpose |
+  |-------|---------|
+  | `primary` | Action CTAs, accents |
+  | `success` | Positive confirmations, gains |
+  | `destructive` | Warnings, deletes, errors |
+  | `warning` | Alerts, cautions |
+  | `foreground` / `background` | Text and page base |
+  | `card` / `border` | Surface and divider colors |
 
-| Token | Purpose | Tailwind |
-|-------|---------|----------|
-| `primary` | Action CTAs, accents | `btn-primary`, `border-primary` |
-| `success` | Positive confirmations, gains | Green tones |
-| `destructive` | Warnings, deletes, errors | Red tones |
-| `warning` | Alerts, cautions | Orange/yellow tones |
-| `foreground` | Text, icons | High contrast |
-| `bg-background` | Page background | Off-white |
-| `bg-card` | Component/card surfaces | White |
-| `border-border` | Dividers, edges | Subtle gray |
+  How many semantic colors and how they map to actual hex values is a brand decision — this
+  skill doesn't prescribe a number or a palette. What matters is that they're *semantic*
+  (named by purpose) rather than raw hex reused inconsistently, and that they're written down.
 
-**Rules:**
-- Never use raw hex in components — always semantic tokens
-- Minimum 4.5:1 WCAG AA contrast for body text
-- Callouts/banners: `border-l-[3px]` (accent color) only — never full bg
-- No gradients, no tinted backgrounds (`bg-primary/10`, `bg-blue-50`, forbidden)
+- **A typography scale** — pick a small, deliberate set of sizes (e.g. 12/14/16/18/24/32/48)
+  rather than arbitrary values per component. Body text 16px minimum, line-height 1.5–1.75,
+  60–72 characters per line for prose.
+- **A spacing grid** — almost always a 4px or 8px base multiple (Tailwind's default scale works
+  for most projects). Consistency matters more than which base you pick.
+- **Touch targets** — minimum 44×44px (iOS) / 48×48px (Android) for anything tappable.
 
-### 2.3 — Typography System
+Once these are decided, write them into `design.md` at the project root before building more
+screens — that turns a one-time decision into a reusable contract instead of something that has
+to be re-derived (or silently drifts) on every new component.
 
-```
-Scale:        12 / 14 / 16 / 18 / 20 / 24 / 32 / 40 / 48
-Body:         16px minimum, line-height 1.5–1.75
-Line length:  60–72 chars for prose
-Financial:    Font-mono, tabular-nums, right-aligned
-Headings:     Cal Sans or DM Sans; 600–700 weight
-```
-
-### 2.4 — Spacing & Grid
-
-4px base grid:
-
-| Token | Value | Use |
-|-------|-------|-----|
-| `gap-1` | 4px | Icon padding |
-| `gap-2` | 8px | Tight spacing |
-| `gap-3` | 12px | Element gaps |
-| `gap-4` | 16px | Component padding |
-| `gap-6` | 24px | Section spacing |
-
-**Touch targets:** min 44×44px (iOS) / 48×48px (Android)
+**What this section deliberately doesn't decide:** exact colors, exact font families, icon
+library, motion style, or any of the taste/anti-cliché judgment calls. Once `design.md` exists
+(even a first draft), hand those to `frontend-design` — it's built for exactly that layer and
+has the anti-slop discipline this skill doesn't duplicate.
 
 ---
 
@@ -192,24 +191,29 @@ Headings:     Cal Sans or DM Sans; 600–700 weight
 
 ### 3.1 — shadcn/ui (Primary Layer)
 
-Always prefer shadcn primitives. Never reinvent.
+Prefer shadcn primitives over hand-rolled components when the project already uses shadcn/ui
+(check `components.json` or an existing `components/ui/` folder) or when starting fresh with no
+constraint against it.
 
 ```tsx
-// ✅ Correct
+// Preferred: shadcn primitive, semantic tokens, no custom button
 import { Button } from "@/components/ui/button"
 
 <Button variant="default" className="gap-2">
-  <Plus className="h-4 w-4" strokeWidth={1.75} />
-  Ajouter un bien
+  <Plus className="h-4 w-4" />
+  Add item
 </Button>
 
-// ❌ Wrong: custom button when shadcn exists
+// Avoid: hand-rolled button styling when a shadcn primitive already exists
 <button className="bg-blue-600 text-white px-4 py-2 rounded">
 ```
 
+If the project uses a different component library or none at all, apply the same principle —
+reuse existing primitives before writing new ones — rather than forcing shadcn/ui in.
+
 ### 3.2 — Component API
 
-All components must have:
+All components should have:
 - `variant` prop (default, destructive, ghost, outline)
 - `size` prop (sm, md, lg)
 - `isLoading` state (disable + spinner)
@@ -217,26 +221,26 @@ All components must have:
 - Forwarded `ref` for form integration
 - TypeScript props interface
 
-### 3.3 — Tailwind Patterns (DS V3.1 Compliant)
+### 3.3 — Tailwind Patterns
 
 ```tsx
-// Colors: semantic tokens only
+// Colors: semantic tokens, not raw hex
 className="bg-card border border-border hover:bg-background"
 
-// Callouts: special accent left-border rule
+// Callouts: accent left-border rather than a full tinted background
 className="bg-card border border-border border-l-[3px] border-l-success"
 
-// Financial numbers: tabular, right-aligned
+// Numeric/tabular data (financial figures, metrics tables): tabular, right-aligned
 className="font-mono tabular-nums text-right"
 
-// Icons: Lucide, strict sizing
-<Plus className="h-4 w-4" strokeWidth={1.75} />
-
-// Spacing: 4px grid
+// Spacing: consistent grid, not arbitrary pixels
 className="gap-4 p-6 mb-6"
-
-// No emojis, gradients, tinted backgrounds
 ```
+
+Icon library, exact color values, and whether gradients/tinted backgrounds are acceptable are
+taste calls that belong to `design.md` and `frontend-design`, not fixed rules here — this skill
+only asserts that whatever the choice is, it should be applied consistently via semantic
+classes/tokens rather than one-off values per component.
 
 ### 3.4 — State Hierarchy
 
@@ -256,6 +260,11 @@ default → hover → focus → active → loading → disabled → error → su
 
 ## 4. UI Review & Critique Framework
 
+This framework checks **structure and function** — whether the UI works, is consistent, and is
+accessible. It deliberately does not check visual taste (font pairing, color sophistication,
+"does this look templated") — that's `frontend-design`'s pre-flight check and mechanical audit
+script. Run both when reviewing a finished screen; they don't overlap.
+
 ### 4.0 — Quick Audit
 
 1. What's the ONE thing the user does here? Obvious in <3 seconds?
@@ -263,17 +272,13 @@ default → hover → focus → active → loading → disabled → error → su
 3. What would a first-timer misunderstand?
 4. What's the friction point?
 
-### 4.1 — Full Critique: DS V3.1 Checklist
+### 4.1 — Full Critique Checklist
 
 #### 🔴 Critical (block delivery)
 
-- [ ] **DS V3.1 compliance** — see `wiki/design/DESIGN-SYSTEM-V3.1.md`
-  - Max 5 colors + greys only
-  - No tinted backgrounds (`bg-primary/10` forbidden)
-  - Tabular numbers on financial data
-  - Lucide icons 4–5px, stroke 1.75
-  - Zero emojis, gradients, decorative animations
-  
+- [ ] **design.md compliance** — tokens, spacing, and component conventions actually used, not
+      ad-hoc values (if `design.md` exists; otherwise flag that one should be written per
+      Section 2)
 - [ ] **Contrast** — 4.5:1 minimum for body text (WCAG AA)
 - [ ] **Touch targets** — 44×44px minimum on mobile
 - [ ] **No horizontal scroll** — ever, on any breakpoint
@@ -282,13 +287,12 @@ default → hover → focus → active → loading → disabled → error → su
 
 #### 🟠 High Priority (fix before launch)
 
-- [ ] **Spacing** — 4px grid only; no arbitrary pixels
-- [ ] **Colors** — all semantic tokens; no raw hex
-- [ ] **Typography** — scale 12/14/16/18/20/24/32/40/48 only
-- [ ] **Icons** — Lucide only; consistent stroke width
+- [ ] **Spacing** — consistent grid; no arbitrary pixels
+- [ ] **Colors** — semantic tokens used consistently; no raw hex scattered through components
+- [ ] **Typography** — sticks to the project's declared scale
 - [ ] **All states defined** — empty, loading, error, success
 - [ ] **Navigation consistent** — same placement, all screens
-- [ ] **No dead ends** — every empty state has next action
+- [ ] **No dead ends** — every empty state has a next action
 
 #### 🟡 Medium (next sprint)
 
@@ -311,27 +315,26 @@ Structure prompts for Lovable:
 ```
 [Component name]
 Stack: React + Tailwind + shadcn/ui
-Design system: Pradio DS V3.1 — see DESIGN-SYSTEM-V3.1.md
+Design system: design.md (or: none yet — see Section 2 before prompting)
 Variant: [style choice]
 Data: [props shape]
 States: [all states needed]
-DS V3.1 constraints:
-  - Max 5 colors + greys
-  - No tinted backgrounds
-  - Tabular numbers for financial data
-  - Lucide icons only (4–5px, stroke 1.75)
-  - No emojis, gradients, animations
-Do NOT: use emoji icons, inline styles, custom components when shadcn exists
+Constraints (from design.md, or defaults if none):
+  - Semantic color tokens only, no raw hex
+  - Consistent spacing grid
+  - No emoji icons unless the brief explicitly wants that tone
+Do NOT: use emoji icons unless requested, inline styles, custom components when a project
+primitive already exists
 ```
 
 ### Common Lovable Pitfalls
 
 - Uses `useState` instead of React Query — **specify data fetching approach**
 - Inline styles instead of Tailwind — **"Tailwind only, no inline styles"**
-- Custom components over shadcn — **"use shadcn/ui primitives"**
+- Custom components over existing primitives — **"reuse the project's existing components"**
 - Missing states — **"include loading, error, empty, success states"**
-- Emoji icons — **"use Lucide icons only"**
-- Tinted backgrounds — **"never use `bg-primary/10` or colored backgrounds"**
+- Tinted backgrounds where the design system forbids them — **state the actual constraint from
+  design.md, don't assume**
 
 ---
 
@@ -344,7 +347,7 @@ Non-negotiable:
 <img alt="Description" src={...} />
 
 // Icon buttons
-<Button aria-label="Supprimer">
+<Button aria-label="Delete">
   <Trash2 className="h-4 w-4" aria-hidden="true" />
 </Button>
 
@@ -364,14 +367,8 @@ className="focus-visible:ring-2 focus-visible:ring-offset-2"
 
 ## References
 
-**Design System:**
-- `wiki/design/DESIGN-SYSTEM-V3.1.md` — Complete V3.1 spec (mandatory checklist)
-- `wiki/design/design-system-v3.html` — Visual reference
-
-**Product:**
-- `wiki/product/PRD-PRODUCTION.md` — Pradio v3.0 product requirements
-- `wiki/product/SPEC-FONCTIONNELLE.md` — Feature specs
-
-**UX Rules:**
-- `.claude/skills/product-designer/references/ux-rules-pradio.md` — 99 rules adapted to Pradio + DS V3.1
-- `wiki/operations/TROUBLESHOOTING.md` — Common UI issues & diagnosis
+This skill intentionally doesn't ship a references/ folder of project-specific design-system
+docs — that's what each project's own `design.md` is for. If a project has one, it's the source
+of truth for Sections 2–5 above. For the visual-taste rules this skill doesn't cover (anti-AI-
+slop discipline, animation patterns, redesign protocol), see the `frontend-design` skill's
+`references/` folder.

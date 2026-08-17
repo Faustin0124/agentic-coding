@@ -14,7 +14,10 @@ sans dépendance à un stack ou un client en particulier.
 | `supabase-security` | RLS, sécurité multi-tenant, tokens Supabase |
 | `skill-creator` | Créer et itérer sur des skills Claude Code |
 | `frontend-design` | UI/composants front anti-slop : lit `design.md` en priorité, sinon infère le goût (dials, anti-clichés, pre-flight) |
-| `product-designer` | Design produit complet : UX, IA, design system, code UI |
+| `product-designer` | Flows, architecture de l'info, navigation, code UI structurel — complémentaire de `frontend-design` pour le goût visuel |
+| `bug-diagnostics` | Diagnostic de bug en 5 phases : triage → cause racine → propagation → plan → ticket (Notion/GitHub/local) |
+| `tech-debt-manager` | Audit dette technique (deps, types, code smells, tests, sécurité) → backlog exécutable scoré |
+| `product-notes` | Convertit une note en vrac en Epic/User Story structurée dans un backlog Notion, sans base figée |
 
 ## Réutiliser un skill dans un nouveau projet
 
