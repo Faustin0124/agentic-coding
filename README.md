@@ -18,6 +18,10 @@ sans dépendance à un stack ou un client en particulier.
 | `bug-diagnostics` | Diagnostic de bug en 5 phases : triage → cause racine → propagation → plan → ticket (Notion/GitHub/local) |
 | `tech-debt-manager` | Audit dette technique (deps, types, code smells, tests, sécurité) → backlog exécutable scoré |
 | `product-notes` | Convertit une note en vrac en Epic/User Story structurée dans un backlog Notion, sans base figée |
+| `security-review` | Revue de sécurité générique (secrets, injection, authn/authz, XSS/CSRF, rate limiting, dépendances) → findings classés par sévérité |
+| `git-workflow` | Conventions git pour un agent : détection des conventions du repo, messages de commit, merge vs rebase, résolution de conflits, PR |
+
+Voir `CONTRIBUTING.md` pour le format attendu d'un `SKILL.md` et les critères d'ajout.
 
 ## Réutiliser un skill dans un nouveau projet
 
