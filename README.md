@@ -18,6 +18,13 @@ sans dépendance à un stack ou un client en particulier.
 | `bug-diagnostics` | Diagnostic de bug en 5 phases : triage → cause racine → propagation → plan → ticket (Notion/GitHub/local) |
 | `tech-debt-manager` | Audit dette technique (deps, types, code smells, tests, sécurité) → backlog exécutable scoré |
 | `product-notes` | Convertit une note en vrac en Epic/User Story structurée dans un backlog Notion, sans base figée |
+| `tdd` | Boucle red-green-refactor : bons tests vs anti-patterns, seams pré-accordés, un slice à la fois |
+| `diagnosing-bugs` | Diagnostic de bugs difficiles en 6 phases : boucle de feedback → repro/minimise → hypothèses → instrumentation → fix → nettoyage |
+| `code-review` | Review du diff sur deux axes indépendants (Standards + baseline Fowler / Spec), lancés en sous-agents parallèles |
+| `codebase-design` | Vocabulaire partagé pour les modules "deep" : interface, seam, adapter, leverage, locality |
+| `resolving-merge-conflicts` | Résout un merge/rebase conflit par conflit en retrouvant l'intention de chaque source, jamais d'`--abort` |
+
+Ces cinq derniers viennent de [mattpocock/skills](https://github.com/mattpocock/skills) (bucket `engineering`, skills model-invoked), adaptés ici en enlevant leur dépendance à son propre workflow (tracker d'issues, `/setup-matt-pocock-skills`) pour rester autonomes.
 
 ## Réutiliser un skill dans un nouveau projet
 
