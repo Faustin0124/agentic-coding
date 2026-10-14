@@ -23,6 +23,16 @@ sans dépendance à un stack ou un client en particulier.
 | `code-review` | Review du diff sur deux axes indépendants (Standards + baseline Fowler / Spec), lancés en sous-agents parallèles |
 | `codebase-design` | Vocabulaire partagé pour les modules "deep" : interface, seam, adapter, leverage, locality |
 | `resolving-merge-conflicts` | Résout un merge/rebase conflit par conflit en retrouvant l'intention de chaque source, jamais d'`--abort` |
+| `write-prd` | Point d'entrée PRD : questions ciblées puis génération du spec, avec le flux complet recommandé |
+| `jobs-to-be-done` | Jobs fonctionnels, sociaux et émotionnels derrière le comportement client : bien définir le problème |
+| `mom-test` | Guide d'entretien, audit de questions et tri vrai/faux signal dans des transcripts |
+| `amazon-working-backwards` | PR/FAQ pour tester si une idée vaut la peine d'être construite avant de spécifier |
+| `craft-spec` | Notes en vrac → PRD structuré (problème, métriques, scope, solution, stories, questions ouvertes) |
+| `draft-spec` | Spec détaillé : exploration de solutions, parcours précis, critères d'acceptation testables |
+| `pre-mortem` | Imaginer l'échec avant de livrer : Tigres, Tigres de papier, Éléphants |
+| `create-user-stories` | PRD → user stories prêtes pour le dev avec critères Given/When/Then |
+
+Les huit skills produit (`write-prd` … `create-user-stories`) sont issus de [amplitude/builder-skills](https://github.com/amplitude/builder-skills) (plugin `product-skills`), traduits en français et débarrassés de leurs dépendances à Amplitude. Flux conseillé : `jobs-to-be-done` / `mom-test` → `amazon-working-backwards` → `write-prd` → `pre-mortem` → `create-user-stories`.
 
 Ces cinq derniers viennent de [mattpocock/skills](https://github.com/mattpocock/skills) (bucket `engineering`, skills model-invoked), adaptés ici en enlevant leur dépendance à son propre workflow (tracker d'issues, `/setup-matt-pocock-skills`) pour rester autonomes.
 
