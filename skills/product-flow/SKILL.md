@@ -64,6 +64,8 @@ Puis **choisis le point d'entrée** et annonce-le avec une phrase de justificati
 | PRD déjà écrit | Étape 4 |
 | PRD validé et risques traités | Étape 5 |
 
+**Niveau de l'item.** Détecte s'il s'agit d'une story ou d'un Epic : lis `Type` sur l'item Notion, sinon juge sur la taille (plusieurs workflows indépendants, ou plus de 2–3 semaines de travail = Epic). Note-le dans `brief.md` ; il détermine la sortie des étapes 3 à 5 et l'export (voir « Item de taille Epic »).
+
 Écris `brief.md` (étape 0) et passe la porte 0 : « Voici ce que j'ai compris, par où je propose de commencer. OK ? »
 
 ### Étape 1. Comprendre le problème
@@ -91,6 +93,29 @@ Appelle `create-user-stories` à partir de `prd.md` et `risques.md` (intègre le
 
 > **Porte 5. Prêt pour le dev ?** Vérifie : chaque story tient en un sprint, a des critères testables, inclut chemins d'erreur et état vide ; les P0 couvrent le lancement.
 
+## Item de taille Epic
+
+Un Epic se raffine **une fois au niveau Epic**, puis se découpe. Ne spécifie pas chaque story comme un PRD à part.
+
+| Étape | Sujet = story | Sujet = Epic |
+|---|---|---|
+| 1–2 | Problème et idée | Idem, au niveau du problème global : l'Epic doit répondre à **un** problème |
+| 3 | `prd.md` du sujet | `prd.md` **de l'Epic** : problème, métriques, scope, hors-scope, phasage |
+| 3 bis | — | **Découpage en stories** (voir ci-dessous) |
+| 4 | Pre-mortem du sujet | Pre-mortem **de l'Epic** (les risques sont surtout là) |
+| 5 | `stories.md` (1 à quelques stories) | `stories.md` : toutes les stories, groupées par phase |
+
+**Découpage (étape 3 bis).** Propose-le avant de rédiger les stories, et fais-le valider (porte 3 bis) :
+- découpe par **workflow utilisateur** (tranches verticales de bout en bout), pas par composant technique ;
+- chaque story tient en un sprint et peut être livrée seule ; signale celles qui dépendent d'une autre ;
+- inclus la story d'**état vide** et les stories de **chemins d'erreur** significatifs ;
+- regroupe en **phases** (v1 / v1.1…) si le scope est large ; la phase 1 doit déjà avoir de la valeur ;
+- si une partie est trop floue pour être découpée, mets-la en « à raffiner » plutôt que d'inventer des stories ; elle repartira dans `product-flow` plus tard.
+
+**Un Epic au résultat trop gros.** Si l'Epic produit plus de ~10–12 stories ou plusieurs problèmes distincts, propose de le scinder en deux Epics et de faire un `product-flow` par Epic.
+
+> **Porte 3 bis. Ce découpage te convient-il ?** Montre la liste (titre, phase, priorité proposée, dépendances) avant d'écrire les stories détaillées.
+
 ## Export vers Notion
 
 À la fin (ou à la demande à n'importe quelle étape), propose l'export et **demande confirmation avant d'écrire**. Comme `product-notes`, lis d'abord le schéma réel de la base (`notion-fetch`), copie les valeurs de sélection caractère pour caractère, ne devine ni ID ni vocabulaire.
@@ -98,7 +123,12 @@ Appelle `create-user-stories` à partir de `prd.md` et `risques.md` (intègre le
 1. **Mettre à jour l'item d'origine** (`notion-update-page`) : ajouter à sa page une section de synthèse (problème, preuves, décision, scope, métriques, risques majeurs, liens vers les fichiers `docs/<sujet>/`). Ne pas écraser le contenu existant.
 2. **Créer les stories** (`notion-create-pages`) dans la même base, avec le même Epic parent que l'item (ou la relation que la base utilise), `Type` = `User Story`, une page par story avec contexte, énoncé et critères d'acceptation issus de `stories.md`.
 3. **Statut et priorité** : ne pas les modifier d'office. Propose le changement (ex. passer l'item à « prêt pour le dev », priorités P0/P1/P2 des stories) et applique-le seulement si l'utilisateur confirme.
-4. **Épique-taille** : si le sujet est en réalité un Epic, dis-le et propose de créer l'Epic puis de rattacher les stories.
+4. **Sujet de taille Epic** :
+   - si l'item d'origine **est déjà** un Epic (`Type` = `Epic`) : le mettre à jour avec la synthèse du PRD (point 1), puis créer les stories rattachées à lui ;
+   - si l'item d'origine était une **story trop grosse** : proposer de la convertir en Epic (changer son `Type`, sur confirmation) ou d'en créer un nouveau et de laisser l'ancienne en lien ; ne rien supprimer ;
+   - si le sujet n'a **pas d'Epic** correspondant : proposer un nom, demander confirmation, créer l'Epic **d'abord**, puis les stories qui pointent vers lui ;
+   - le PRD complet reste dans `docs/<sujet>/prd.md` ; la page de l'Epic en porte la synthèse et les liens ;
+   - copie le nom de l'Epic caractère pour caractère si c'est une propriété de sélection, pour ne pas créer une option parasite.
 5. **Doublons** : si une story existante recoupe une nouvelle, signale-la sans fusionner ni supprimer.
 6. Termine par une courte liste : pages mises à jour/créées avec leur lien.
 
@@ -118,5 +148,6 @@ Si `docs/<sujet>/brief.md` existe : lis l'en-tête et le journal, résume en tro
 - **Une seule question de décision par porte**, avec ta recommandation.
 - **Sépare toujours le su du supposé** dans le brief et les résumés de porte.
 - **N'empile pas des étapes inutiles** : saute celles qui n'apportent rien (et dis-le), mais jamais la porte 3 ni l'export sans confirmation.
+- **Un Epic se raffine au niveau Epic**, puis se découpe : pas un PRD par story.
 - **Délègue** : ne réécris pas ici la logique des skills appelés.
 - **Notion en écriture seulement sur confirmation** ; jamais de suppression, de fusion ou de changement de sprint.
