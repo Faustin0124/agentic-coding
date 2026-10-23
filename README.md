@@ -41,6 +41,7 @@ Les cinq skills `tdd`, `diagnosing-bugs`, `code-review`, `codebase-design` et `r
 | `pre-mortem` | Imaginer l'échec avant de livrer : Tigres, Tigres de papier, Éléphants |
 | `create-user-stories` | PRD → user stories prêtes pour le dev avec critères Given/When/Then |
 | `product-designer` | Flows, architecture de l'info, navigation, code UI structurel — complémentaire de `frontend-design` pour le goût visuel |
+| `ux-evolution` | Évol d'un parcours ou écran existant : captures + irritants utilisateur → inventaire, causes, 2–3 options, reco v1, prompt Lovable et métriques |
 
 Les huit skills de `jobs-to-be-done` à `create-user-stories` (hors `product-notes`, `product-flow` et `product-designer`) sont issus de [amplitude/builder-skills](https://github.com/amplitude/builder-skills) (plugin `product-skills`), traduits en français et débarrassés de leurs dépendances à Amplitude.
 
@@ -62,6 +63,7 @@ docs/<sujet>/ (brief, prd, risques, stories)  +  export Notion (Epic puis storie
 ```
 
 - Un item de taille Epic est raffiné au niveau Epic (un seul PRD), puis découpé en stories validées avant écriture.
+- Pour faire évoluer un écran ou un parcours **qui existe déjà** (captures + irritants utilisateur), passe directement par `ux-evolution` ; `product-flow` y renvoie aussi depuis son cadrage.
 - Chaque skill reste utilisable seul (`/mom-test`, `/pre-mortem`…) sans passer par `product-flow`.
 - **Prérequis** : le connecteur Notion pour la capture et l'export (`product-notes`, `product-flow`). Sans Notion, `product-flow` fonctionne avec un problème donné en conversation et les fichiers `docs/<sujet>/`.
 - **Installation** : `product-flow` appelle les autres skills du groupe, copie-les ensemble :
