@@ -31,6 +31,7 @@ Les cinq skills `tdd`, `diagnosing-bugs`, `code-review`, `codebase-design` et `r
 | Skill | Usage |
 |---|---|
 | `product-notes` | Convertit une note en vrac en Epic/User Story structurée dans un backlog Notion, sans base figée |
+| `quick-evol` | Version courte de `product-flow` pour une petite évol : test de taille, fiche d'une page (problème, solution, critères, risque, mesure), une validation, mise à jour Notion |
 | `product-flow` | Chef d'orchestre : part d'un item du backlog Notion (ou d'un problème brut), déroule les skills produit avec une porte de validation par étape, écrit `docs/<sujet>/` puis exporte dans Notion |
 | `jobs-to-be-done` | Jobs fonctionnels, sociaux et émotionnels derrière le comportement client : bien définir le problème |
 | `mom-test` | Guide d'entretien, audit de questions et tri vrai/faux signal dans des transcripts |
@@ -41,6 +42,7 @@ Les cinq skills `tdd`, `diagnosing-bugs`, `code-review`, `codebase-design` et `r
 | `pre-mortem` | Imaginer l'échec avant de livrer : Tigres, Tigres de papier, Éléphants |
 | `create-user-stories` | PRD → user stories prêtes pour le dev avec critères Given/When/Then |
 | `product-designer` | Flows, architecture de l'info, navigation, code UI structurel — complémentaire de `frontend-design` pour le goût visuel |
+| `ux-evolution` | Évol d'un parcours ou écran existant : captures + irritants utilisateur → inventaire, causes, 2–3 options, reco v1, prompt Lovable et métriques |
 
 Les huit skills de `jobs-to-be-done` à `create-user-stories` (hors `product-notes`, `product-flow` et `product-designer`) sont issus de [amplitude/builder-skills](https://github.com/amplitude/builder-skills) (plugin `product-skills`), traduits en français et débarrassés de leurs dépendances à Amplitude.
 
@@ -50,6 +52,9 @@ Les huit skills de `jobs-to-be-done` à `create-user-stories` (hors `product-not
 
 ```
 product-notes (capture dans Notion)
+        │
+        ├─ petite évol ─────────────► quick-evol   (fiche d'une page, 1 validation → Notion)
+        ├─ évol d'un écran existant ► ux-evolution
         │
 product-flow ── 0. cadrage ──► choisit le point d'entrée
         │  1. jobs-to-be-done / mom-test       → problème réel et précis ?
@@ -62,12 +67,14 @@ docs/<sujet>/ (brief, prd, risques, stories)  +  export Notion (Epic puis storie
 ```
 
 - Un item de taille Epic est raffiné au niveau Epic (un seul PRD), puis découpé en stories validées avant écriture.
+- Pour une **petite évol** (une story, problème connu, pas de nouveau modèle de données), `quick-evol` fait le même travail en une page et une validation ; il renvoie vers `product-flow` si le sujet s'avère plus gros.
+- Pour faire évoluer un écran ou un parcours **qui existe déjà** (captures + irritants utilisateur), passe directement par `ux-evolution` ; `product-flow` y renvoie aussi depuis son cadrage.
 - Chaque skill reste utilisable seul (`/mom-test`, `/pre-mortem`…) sans passer par `product-flow`.
 - **Prérequis** : le connecteur Notion pour la capture et l'export (`product-notes`, `product-flow`). Sans Notion, `product-flow` fonctionne avec un problème donné en conversation et les fichiers `docs/<sujet>/`.
 - **Installation** : `product-flow` appelle les autres skills du groupe, copie-les ensemble :
 
 ```bash
-for s in product-notes product-flow jobs-to-be-done mom-test amazon-working-backwards \
+for s in product-notes product-flow quick-evol ux-evolution jobs-to-be-done mom-test amazon-working-backwards \
          write-prd craft-spec draft-spec pre-mortem create-user-stories; do
   cp -R skills/$s /chemin/vers/projet/.claude/skills/
 done

@@ -114,6 +114,9 @@ The title itself should be short and descriptive (5-10 words), not the raw note 
    in step 1 of "Finding the target database" above.
 5. Confirm what was created — title, type, parent Epic, Notion link — as a short list, not a
    paragraph.
+6. If a created Story is clearly small (one user flow, a few days of work, known problem), offer
+   in one line to prepare it for dev with `quick-evol`; for anything bigger, mention
+   `product-flow`. Don't start either without the user saying yes.
 
 ## What this skill does not do
 

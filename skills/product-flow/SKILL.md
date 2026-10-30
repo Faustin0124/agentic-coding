@@ -63,6 +63,8 @@ Puis **choisis le point d'entrée** et annonce-le avec une phrase de justificati
 | Problème et idée clairs | Étape 3 |
 | PRD déjà écrit | Étape 4 |
 | PRD validé et risques traités | Étape 5 |
+| Petite évol (une story, un parcours, problème connu, pas de nouveau modèle de données) | `quick-evol` |
+| Évolution d'un écran ou parcours existant, irritants identifiés | `ux-evolution` (reprendre ici à l'étape 3 ou 5 si un spec ou des stories sont nécessaires) |
 
 **Niveau de l'item.** Détecte s'il s'agit d'une story ou d'un Epic : lis `Type` sur l'item Notion, sinon juge sur la taille (plusieurs workflows indépendants, ou plus de 2–3 semaines de travail = Epic). Note-le dans `brief.md` ; il détermine la sortie des étapes 3 à 5 et l'export (voir « Item de taille Epic »).
 
