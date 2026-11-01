@@ -78,7 +78,7 @@ Appelle `mom-test` et/ou `jobs-to-be-done` selon le tableau. Si l'étape consist
 ### Étape 2. Valider l'idée
 Appelle `amazon-working-backwards`. Passe-la si le problème est solide et la solution évidente (dis-le et demande confirmation de la sauter).
 
-> **Porte 2. Ça vaut la peine d'être construit ?** Reprends le verdict du « test d'arrêt » et les questions des FAQ internes restées sans réponse. Propose : *avancer* / *retravailler* / *abandonner*.
+> **Porte 2. Ça vaut la peine d'être construit ?** Reprends le verdict final du skill (avancer, retravailler ou abandonner) et les questions de l'équipe restées sans bonne réponse (faisabilité, risques, mesure du succès). Propose : *avancer* / *retravailler* / *abandonner*.
 
 ### Étape 3. Spécifier
 Appelle `write-prd` (questions + `craft-spec`). Propose `draft-spec` si le sujet touche une interface, plusieurs parcours ou des cas limites : demande-lui le niveau de détail voulu. Écris `prd.md`.
@@ -86,12 +86,12 @@ Appelle `write-prd` (questions + `craft-spec`). Propose `draft-spec` si le sujet
 > **Porte 3. Le PRD te convient-il ?** Relis avec l'utilisateur : scope et hors-scope, métriques, hypothèses signalées, questions ouvertes. Aucune question ouverte bloquante ne doit rester implicite.
 
 ### Étape 4. Sécuriser
-Appelle `pre-mortem` sur le PRD. Écris `risques.md`. Si un Tigre révèle une hypothèse non testée, **retour à l'étape 1** pour la valider (voir « Retours en arrière »).
+Appelle `pre-mortem` sur le PRD : il classe les risques en **risques réels** (à traiter), **fausses alertes** (à écarter) et **non-dits** (ce que personne n'ose dire). Écris `risques.md`. Si un risque réel repose sur une hypothèse jamais vérifiée, **retour à l'étape 1** pour la vérifier (voir « Retours en arrière »).
 
-> **Porte 4. Les Tigres bloquants sont-ils traités ?** Liste-les avec mitigation, responsable et échéance. Propose : *avancer* / *traiter d'abord X*.
+> **Porte 4. Les risques bloquants ont-ils une parade ?** Liste-les avec la parade, le responsable et l'échéance. Propose : *avancer* / *traiter d'abord X*.
 
 ### Étape 5. Passer au dev
-Appelle `create-user-stories` à partir de `prd.md` et `risques.md` (intègre les mitigations comme critères ou stories). Écris `stories.md`.
+Appelle `create-user-stories` à partir de `prd.md` et `risques.md` (intègre les parades comme critères ou stories). Écris `stories.md`.
 
 > **Porte 5. Prêt pour le dev ?** Vérifie : chaque story tient en un sprint, a des critères testables, inclut chemins d'erreur et état vide ; les P0 couvrent le lancement.
 
@@ -138,7 +138,7 @@ Si le sujet est abandonné à une porte, propose de consigner la décision et la
 
 ## Retours en arrière
 
-Le parcours n'est pas linéaire. Si une étape invalide une précédente (hypothèse non validée au pre-mortem, question ouverte du PR/FAQ, PRD qui contredit les preuves), **dis-le, reviens à l'étape concernée** et note-le dans le journal du brief.
+Le parcours n'est pas linéaire. Si une étape invalide une précédente (hypothèse non validée au pre-mortem, question restée sans réponse à l'étape 2, PRD qui contredit les preuves), **dis-le, reviens à l'étape concernée** et note-le dans le journal du brief.
 
 ## Reprise
 

@@ -39,7 +39,7 @@ Les cinq skills `tdd`, `diagnosing-bugs`, `code-review`, `codebase-design` et `r
 | `write-prd` | Point d'entrée PRD : questions ciblées puis génération du spec, avec le flux complet recommandé |
 | `craft-spec` | Notes en vrac → PRD structuré (problème, métriques, scope, solution, stories, questions ouvertes) |
 | `draft-spec` | Spec détaillé : exploration de solutions, parcours précis, critères d'acceptation testables |
-| `pre-mortem` | Imaginer l'échec avant de livrer : Tigres, Tigres de papier, Éléphants |
+| `pre-mortem` | Imaginer l'échec avant de livrer : risques réels (avec parade), fausses alertes, non-dits |
 | `create-user-stories` | PRD → user stories prêtes pour le dev avec critères Given/When/Then |
 | `product-designer` | Flows, architecture de l'info, navigation, code UI structurel — complémentaire de `frontend-design` pour le goût visuel |
 | `ux-evolution` | Évol d'un parcours ou écran existant : captures + irritants utilisateur → inventaire, causes, 2–3 options, reco v1, prompt Lovable et métriques |
