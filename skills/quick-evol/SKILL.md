@@ -84,7 +84,7 @@ Après validation :
    - si on partait d'un item : ajouter la fiche à sa page (`notion-update-page`), sans écraser le contenu existant ;
    - si on partait d'une note : créer la story comme le fait `product-notes` (type, Epic parent existant, statut le plus amont), avec la fiche comme contenu ;
    - ne pas changer le statut, la priorité ou le sprint d'office : proposer (ex. « passer à prêt pour le dev ? ») et appliquer seulement si l'utilisateur confirme.
-2. **En option**, propose un **prompt Lovable** ou un **brief dev** prêt à coller, construit à partir de la solution et des critères (une modification par point numéroté, libellés exacts, ce qui ne change pas).
+2. **En option**, propose un **prompt Lovable** ou un **brief dev** prêt à coller, construit à partir de la solution et des critères (une modification par point numéroté, libellés exacts, ce qui ne change pas). Si l'évol se code dans un dépôt accessible, propose plutôt `feature-scoping` pour le cadrage technique (ancrage dans le code, impact, plan).
 3. Termine par le lien de la page Notion mise à jour ou créée.
 
 Pas de dossier `docs/<sujet>/` par défaut : la fiche vit dans Notion. Écris `docs/<sujet>.md` seulement si l'utilisateur le demande ou si Notion n'est pas disponible.

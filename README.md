@@ -17,6 +17,7 @@ sans dépendance à un stack ou un client en particulier.
 | `skill-creator` | Créer et itérer sur des skills Claude Code |
 | `frontend-design` | UI/composants front anti-slop : lit `design.md` en priorité, sinon infère le goût (dials, anti-clichés, pre-flight) |
 | `bug-diagnostics` | Diagnostic de bug en 5 phases : triage → cause racine → propagation → plan → ticket (Notion/GitHub/local) |
+| `feature-scoping` | Cadrage d'une feature simple en 5 phases, comme `bug-diagnostics` : besoin et taille → ancrage dans le code → impact → plan → ticket (Notion/GitHub/local) |
 | `tech-debt-manager` | Audit dette technique (deps, types, code smells, tests, sécurité) → backlog exécutable scoré |
 | `tdd` | Boucle red-green-refactor : bons tests vs anti-patterns, seams pré-accordés, un slice à la fois |
 | `diagnosing-bugs` | Diagnostic de bugs difficiles en 6 phases : boucle de feedback → repro/minimise → hypothèses → instrumentation → fix → nettoyage |
