@@ -17,6 +17,7 @@ sans dépendance à un stack ou un client en particulier.
 | `skill-creator` | Créer et itérer sur des skills Claude Code |
 | `frontend-design` | UI/composants front anti-slop : lit `design.md` en priorité, sinon infère le goût (dials, anti-clichés, pre-flight) |
 | `bug-diagnostics` | Diagnostic de bug en 5 phases : triage → cause racine → propagation → plan → ticket (Notion/GitHub/local) |
+| `feature-scoping` | Cadrage d'une feature simple en 5 phases, comme `bug-diagnostics` : besoin et taille → ancrage dans le code → impact → plan → ticket (Notion/GitHub/local) |
 | `tech-debt-manager` | Audit dette technique (deps, types, code smells, tests, sécurité) → backlog exécutable scoré |
 | `tdd` | Boucle red-green-refactor : bons tests vs anti-patterns, seams pré-accordés, un slice à la fois |
 | `diagnosing-bugs` | Diagnostic de bugs difficiles en 6 phases : boucle de feedback → repro/minimise → hypothèses → instrumentation → fix → nettoyage |
@@ -31,15 +32,14 @@ Les cinq skills `tdd`, `diagnosing-bugs`, `code-review`, `codebase-design` et `r
 | Skill | Usage |
 |---|---|
 | `product-notes` | Convertit une note en vrac en Epic/User Story structurée dans un backlog Notion, sans base figée |
-| `quick-evol` | Version courte de `product-flow` pour une petite évol : test de taille, fiche d'une page (problème, solution, critères, risque, mesure), une validation, mise à jour Notion |
-| `product-flow` | Chef d'orchestre : part d'un item du backlog Notion (ou d'un problème brut), déroule les skills produit avec une porte de validation par étape, écrit `docs/<sujet>/` puis exporte dans Notion |
+| `product-flow` | Chef d'orchestre pour les sujets moyens à gros : part d'un item du backlog Notion (ou d'un problème brut) et répond à 4 questions, une validation à chaque fois ; Notion fait foi, un brouillon local sert à reprendre |
 | `jobs-to-be-done` | Jobs fonctionnels, sociaux et émotionnels derrière le comportement client : bien définir le problème |
 | `mom-test` | Guide d'entretien, audit de questions et tri vrai/faux signal dans des transcripts |
 | `amazon-working-backwards` | PR/FAQ pour tester si une idée vaut la peine d'être construite avant de spécifier |
 | `write-prd` | Point d'entrée PRD : questions ciblées puis génération du spec, avec le flux complet recommandé |
 | `craft-spec` | Notes en vrac → PRD structuré (problème, métriques, scope, solution, stories, questions ouvertes) |
 | `draft-spec` | Spec détaillé : exploration de solutions, parcours précis, critères d'acceptation testables |
-| `pre-mortem` | Imaginer l'échec avant de livrer : Tigres, Tigres de papier, Éléphants |
+| `pre-mortem` | Imaginer l'échec avant de livrer : risques réels (avec parade), fausses alertes, non-dits |
 | `create-user-stories` | PRD → user stories prêtes pour le dev avec critères Given/When/Then |
 | `product-designer` | Flows, architecture de l'info, navigation, code UI structurel — complémentaire de `frontend-design` pour le goût visuel |
 | `ux-evolution` | Évol d'un parcours ou écran existant : captures + irritants utilisateur → inventaire, causes, 2–3 options, reco v1, prompt Lovable et métriques |
@@ -48,33 +48,34 @@ Les huit skills de `jobs-to-be-done` à `create-user-stories` (hors `product-not
 
 #### Workflow produit : de l'idée au dev
 
-`product-notes` capture une idée dans le backlog Notion ; `product-flow` la raffine ensuite, étape par étape, avec une porte de validation à chaque fois :
+`product-notes` capture une idée dans le backlog Notion ; selon sa taille, elle part ensuite vers `feature-scoping`, `ux-evolution` ou `product-flow`, qui la raffine en quatre questions avec une validation à chaque fois :
 
 ```
 product-notes (capture dans Notion)
         │
-        ├─ petite évol ─────────────► quick-evol   (fiche d'une page, 1 validation → Notion)
+        ├─ petite feature ──────────► feature-scoping (5 phases, lit le code → ticket)
         ├─ évol d'un écran existant ► ux-evolution
         │
-product-flow ── 0. cadrage ──► choisit le point d'entrée
-        │  1. jobs-to-be-done / mom-test       → problème réel et précis ?
-        │  2. amazon-working-backwards         → ça vaut le coup de construire ?
-        │  3. write-prd (craft-spec / draft-spec) → PRD validé ?
-        │  4. pre-mortem                       → risques bloquants traités ?
-        │  5. create-user-stories              → prêt pour le dev ?
+product-flow ── 0. De quoi parle-t-on ? ──► choisit par où commencer
+        │  1. Le problème est réel, ça vaut le coup ?  (mom-test / jobs-to-be-done,
+        │                                               amazon-working-backwards si doute)
+        │  2. Qu'est-ce qu'on construit ?              (write-prd / craft-spec / draft-spec)
+        │  3. Qu'est-ce qui pourrait mal tourner ?     (pre-mortem)
+        │  4. Prêt pour le dev ?                       (create-user-stories, puis
+        │                                               feature-scoping par story P0)
         ▼
-docs/<sujet>/ (brief, prd, risques, stories)  +  export Notion (Epic puis stories)
+export Notion (Epic puis stories) — Notion fait foi ; brouillon docs/<sujet>.md pour reprendre
 ```
 
 - Un item de taille Epic est raffiné au niveau Epic (un seul PRD), puis découpé en stories validées avant écriture.
-- Pour une **petite évol** (une story, problème connu, pas de nouveau modèle de données), `quick-evol` fait le même travail en une page et une validation ; il renvoie vers `product-flow` si le sujet s'avère plus gros.
+- Pour une **petite feature** (une story, problème connu, pas de nouveau modèle de données), `feature-scoping` fait le cadrage en 5 phases, du besoin au ticket, en lisant le code ; il renvoie vers `product-flow` si le sujet s'avère plus gros.
 - Pour faire évoluer un écran ou un parcours **qui existe déjà** (captures + irritants utilisateur), passe directement par `ux-evolution` ; `product-flow` y renvoie aussi depuis son cadrage.
 - Chaque skill reste utilisable seul (`/mom-test`, `/pre-mortem`…) sans passer par `product-flow`.
-- **Prérequis** : le connecteur Notion pour la capture et l'export (`product-notes`, `product-flow`). Sans Notion, `product-flow` fonctionne avec un problème donné en conversation et les fichiers `docs/<sujet>/`.
+- **Prérequis** : le connecteur Notion pour la capture et l'export (`product-notes`, `product-flow`). Sans Notion, `product-flow` fonctionne avec un problème donné en conversation, et son brouillon `docs/<sujet>.md` devient le document de référence.
 - **Installation** : `product-flow` appelle les autres skills du groupe, copie-les ensemble :
 
 ```bash
-for s in product-notes product-flow quick-evol ux-evolution jobs-to-be-done mom-test amazon-working-backwards \
+for s in product-notes product-flow feature-scoping ux-evolution jobs-to-be-done mom-test amazon-working-backwards \
          write-prd craft-spec draft-spec pre-mortem create-user-stories; do
   cp -R skills/$s /chemin/vers/projet/.claude/skills/
 done
