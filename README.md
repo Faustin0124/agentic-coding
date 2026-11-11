@@ -32,7 +32,7 @@ Les cinq skills `tdd`, `diagnosing-bugs`, `code-review`, `codebase-design` et `r
 | Skill | Usage |
 |---|---|
 | `product-notes` | Convertit une note en vrac en Epic/User Story structurée dans un backlog Notion, sans base figée |
-| `product-flow` | Chef d'orchestre : part d'un item du backlog Notion (ou d'un problème brut), déroule les skills produit avec une porte de validation par étape, écrit `docs/<sujet>/` puis exporte dans Notion |
+| `product-flow` | Chef d'orchestre pour les sujets moyens à gros : part d'un item du backlog Notion (ou d'un problème brut) et répond à 4 questions, une validation à chaque fois ; Notion fait foi, un brouillon local sert à reprendre |
 | `jobs-to-be-done` | Jobs fonctionnels, sociaux et émotionnels derrière le comportement client : bien définir le problème |
 | `mom-test` | Guide d'entretien, audit de questions et tri vrai/faux signal dans des transcripts |
 | `amazon-working-backwards` | PR/FAQ pour tester si une idée vaut la peine d'être construite avant de spécifier |
@@ -48,7 +48,7 @@ Les huit skills de `jobs-to-be-done` à `create-user-stories` (hors `product-not
 
 #### Workflow produit : de l'idée au dev
 
-`product-notes` capture une idée dans le backlog Notion ; `product-flow` la raffine ensuite, étape par étape, avec une porte de validation à chaque fois :
+`product-notes` capture une idée dans le backlog Notion ; selon sa taille, elle part ensuite vers `feature-scoping`, `ux-evolution` ou `product-flow`, qui la raffine en quatre questions avec une validation à chaque fois :
 
 ```
 product-notes (capture dans Notion)
@@ -56,21 +56,22 @@ product-notes (capture dans Notion)
         ├─ petite feature ──────────► feature-scoping (5 phases, lit le code → ticket)
         ├─ évol d'un écran existant ► ux-evolution
         │
-product-flow ── 0. cadrage ──► choisit le point d'entrée
-        │  1. jobs-to-be-done / mom-test       → problème réel et précis ?
-        │  2. amazon-working-backwards         → ça vaut le coup de construire ?
-        │  3. write-prd (craft-spec / draft-spec) → PRD validé ?
-        │  4. pre-mortem                       → risques bloquants traités ?
-        │  5. create-user-stories              → prêt pour le dev ?
+product-flow ── 0. De quoi parle-t-on ? ──► choisit par où commencer
+        │  1. Le problème est réel, ça vaut le coup ?  (mom-test / jobs-to-be-done,
+        │                                               amazon-working-backwards si doute)
+        │  2. Qu'est-ce qu'on construit ?              (write-prd / craft-spec / draft-spec)
+        │  3. Qu'est-ce qui pourrait mal tourner ?     (pre-mortem)
+        │  4. Prêt pour le dev ?                       (create-user-stories, puis
+        │                                               feature-scoping par story P0)
         ▼
-docs/<sujet>/ (brief, prd, risques, stories)  +  export Notion (Epic puis stories)
+export Notion (Epic puis stories) — Notion fait foi ; brouillon docs/<sujet>.md pour reprendre
 ```
 
 - Un item de taille Epic est raffiné au niveau Epic (un seul PRD), puis découpé en stories validées avant écriture.
 - Pour une **petite feature** (une story, problème connu, pas de nouveau modèle de données), `feature-scoping` fait le cadrage en 5 phases, du besoin au ticket, en lisant le code ; il renvoie vers `product-flow` si le sujet s'avère plus gros.
 - Pour faire évoluer un écran ou un parcours **qui existe déjà** (captures + irritants utilisateur), passe directement par `ux-evolution` ; `product-flow` y renvoie aussi depuis son cadrage.
 - Chaque skill reste utilisable seul (`/mom-test`, `/pre-mortem`…) sans passer par `product-flow`.
-- **Prérequis** : le connecteur Notion pour la capture et l'export (`product-notes`, `product-flow`). Sans Notion, `product-flow` fonctionne avec un problème donné en conversation et les fichiers `docs/<sujet>/`.
+- **Prérequis** : le connecteur Notion pour la capture et l'export (`product-notes`, `product-flow`). Sans Notion, `product-flow` fonctionne avec un problème donné en conversation, et son brouillon `docs/<sujet>.md` devient le document de référence.
 - **Installation** : `product-flow` appelle les autres skills du groupe, copie-les ensemble :
 
 ```bash
