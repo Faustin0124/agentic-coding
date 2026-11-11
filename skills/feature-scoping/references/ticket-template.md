@@ -52,8 +52,16 @@ destination (conversation, Notion, issue GitHub, fichier local) : seule la mise 
     Complexité   : Faible / Moyenne / Élevée
     Livrable seul : Oui / Non
 
+🎲 RISQUE PRINCIPAL
+  [ce qui pourrait mal tourner] → [parade]
+
+📈 SIGNAL DE SUCCÈS
+  [métrique ou signal simple, événement à tracker si besoin]
+
 ⚠️ POINTS D'ATTENTION
-  [risques, dépendances, questions ouvertes — vide si aucun]
+  [dépendances, questions ouvertes — vide si aucun]
+  Su       : [faits]
+  Supposé  : [hypothèses à confirmer]
 
 🏷️ TAGS
   [feature] [domaine] [taille-S/M/L]

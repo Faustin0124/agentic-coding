@@ -7,9 +7,11 @@ description: >
   et ce qu'elle risque de casser, puis produit un ticket prêt pour le dev et demande s'il faut
   coder maintenant, créer le ticket, ou les deux. Déclencheurs : "ajoute une feature",
   "je veux pouvoir…", "il faudrait que l'utilisateur puisse…", "cadre cette feature",
-  "comment on implémente…", "nouvelle fonctionnalité", "petite feature", "ajoute un bouton /
-  un filtre / un champ / un export", "prépare cette story pour le code". Pour un gros sujet ou
-  un Epic, renvoie vers product-flow ; pour un bug, vers bug-diagnostics.
+  "comment on implémente…", "nouvelle fonctionnalité", "petite feature", "petite évol",
+  "c'est rapide à faire", "pas besoin d'un PRD", "ajoute un bouton / un filtre / un champ /
+  un export", "prépare cette story pour le dev", "prends la prochaine petite évol du
+  backlog". Pour un gros sujet ou un Epic, renvoie vers product-flow ; pour un écran existant
+  mal compris, vers ux-evolution ; pour un bug, vers bug-diagnostics.
 ---
 
 # Feature Scoping
@@ -22,7 +24,7 @@ l'existant ou casse un écran voisin.
 |---|---|
 | `bug-diagnostics` | Quelque chose ne marche pas comme prévu |
 | `feature-scoping` | Ajouter ou changer un comportement, sujet simple |
-| `quick-evol` | Cadrage produit seulement (fiche + Notion), sans lire le code |
+| `ux-evolution` | Faire évoluer un écran existant à partir de captures et d'irritants |
 | `product-flow` | Gros sujet, Epic, problème encore à valider |
 
 ---
@@ -30,6 +32,11 @@ l'existant ou casse un écran voisin.
 ## Phase 1 — Besoin et taille
 
 ### 1.1 Recueillir le contexte minimal
+
+L'entrée est une note en conversation ou un **item du backlog Notion** (titre, lien ou « la
+prochaine petite évol »). Dans ce cas, retrouve-le (`notion-search` / `notion-fetch`) et lis
+sa page ; si rien n'est précisé, liste les items en statut le plus amont et demande lequel
+prendre.
 
 S'il manque des éléments, pose les questions **toutes en une fois** (pas une par une) et
 saute celles dont la réponse est déjà là :
@@ -131,6 +138,10 @@ touchée trouvée. » Ne laisse pas croire que tu as cherché plus large que tu 
 - Écris les **critères d'acceptation** : 3 à 5, au format « Étant donné…, quand…, alors… »,
   dont au moins un état d'erreur ou un cas limite.
 - Précise le **hors scope** : ce que la feature ne fait pas.
+- Donne le **risque principal** : la chose la plus probable qui ferait échouer la feature,
+  avec sa parade.
+- Donne le **signal de succès** : une métrique ou un signal simple qui montrera que la
+  feature sert (et l'événement à tracker s'il n'existe pas).
 
 ### 4.2 Estimer l'effort
 
@@ -196,6 +207,7 @@ Confirme ensuite :
 ## Règles
 
 - **Toujours afficher la taille** de la phase 1 avant de continuer.
+- **Séparer le su du supposé** dans tout le cadrage et dans le ticket.
 - **Lire le code avant de proposer** : la phase 2 n'est pas facultative quand le code est
   accessible.
 - **Réutiliser avant de créer** : un composant ou une règle existante l'emporte sur du neuf.
