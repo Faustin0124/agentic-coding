@@ -16,6 +16,7 @@ sans dépendance à un stack ou un client en particulier.
 | `supabase-security` | RLS, sécurité multi-tenant, tokens Supabase |
 | `skill-creator` | Créer et itérer sur des skills Claude Code |
 | `frontend-design` | UI/composants front anti-slop : lit `design.md` en priorité, sinon infère le goût (dials, anti-clichés, pre-flight) |
+| `stageshow` | Fausses interfaces produit pour le marketing (hero, carte de feature, bento, démo animée avec curseur) en React, avec un kit, des exemples et des outils qui filment le résultat |
 | `bug-diagnostics` | Diagnostic de bug en 5 phases : triage → cause racine → propagation → plan → ticket (Notion/GitHub/local) |
 | `feature-scoping` | Cadrage d'une feature simple en 5 phases, comme `bug-diagnostics` : besoin et taille → ancrage dans le code → impact → plan → ticket (Notion/GitHub/local) |
 | `tech-debt-manager` | Audit dette technique (deps, types, code smells, tests, sécurité) → backlog exécutable scoré |
@@ -26,6 +27,8 @@ sans dépendance à un stack ou un client en particulier.
 | `resolving-merge-conflicts` | Résout un merge/rebase conflit par conflit en retrouvant l'intention de chaque source, jamais d'`--abort` |
 
 Les cinq skills `tdd`, `diagnosing-bugs`, `code-review`, `codebase-design` et `resolving-merge-conflicts` viennent de [mattpocock/skills](https://github.com/mattpocock/skills) (bucket `engineering`, skills model-invoked), adaptés ici en enlevant leur dépendance à son propre workflow (tracker d'issues, `/setup-matt-pocock-skills`) pour rester autonomes.
+
+`stageshow` vient de [benjitaylor/skills](https://github.com/benjitaylor/skills) (version 1.1.1, commit `299140f`), copié tel quel sous licence MIT (voir `skills/stageshow/LICENSE` et `NOTICE.md` pour les icônes et marques tierces). Pour le mettre à jour, recopier le dossier depuis la source, ou l'installer directement dans un projet avec `npx skills add benjitaylor/skills --skill stageshow`. Le kit demande React 18+ ; la prévisualisation et le filmage demandent Node 20.19+, `npm install` dans `skills/stageshow/` et Chrome.
 
 ### Product management
 
